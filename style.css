@@ -1,4 +1,15 @@
-.centered{
+.middle {
+    position: relative;
+    margin: 10% auto;
+}
+
+.centered {
     display: block;
-    margin: 0 auto ;  
+    margin: 0 auto;
+}
+
+.searchbar {
+    width: 25%;
+    height: 2em;
+    border-radius: 500px;
 }
