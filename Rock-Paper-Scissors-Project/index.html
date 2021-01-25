@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <script>
+        function computerPlay() {
+            let choice = Math.floor(Math.random() * 3);
+            switch (choice) {
+                case 0:
+                    return "Rock";
+                case 1:
+                    return "Paper";
+                case 2:
+                    return "Scissors";
+                default:
+                    console.log("Error?");
+
+            }
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            switch (playerSelection.toUpperCase()) {
+                case "ROCK":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            console.log("You Tie! Rock Ties Rock");
+                            return [0, 0];
+                        case "PAPER":
+                            console.log("You Lose! Paper beats Rock");
+                            return [0, 1];
+                        case "SCISSORS":
+                            console.log("You Win! Rock beats Scissors")
+                            return [1, 0];
+                    }
+                    break;
+                case "PAPER":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            console.log("You Win! Paper beats Rock");
+                            return [1, 0];
+                        case "PAPER":
+                            console.log("You Tie! Paper ties Paper");
+                            return [0, 0];
+                        case "SCISSORS":
+                            console.log("You Lose! Scissors beats Paper");
+                            return [0, 1];
+                    }
+                    break;
+                case "SCISSORS":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            console.log("You Lose! Rock beats Scissors");
+                            return [0, 1]
+                        case "PAPER":
+                            console.log("You Win! Scissors beats Paper");
+                            return [1, 0];
+                        case "SCISSORS":
+                            console.log("You Tie! Scissors Ties Scissors");
+                    }
+                    break;
+                default:
+                    console.log("You have entered an invalid option");
+            }
+        }
+
+        function game() {
+            let score = [0, 0];
+            for (let i = 0; i < 5; i++) {
+                console.log("The scores is You: " + score[0] + ", Comp: " + score[1]);
+                result = playRound(prompt("What do you want to play?"), computerPlay());
+                score[0] += result[0];
+                score[1] += result[1];
+            }
+        }
+        game();
+    </script>
+</body>
+
+</html>
