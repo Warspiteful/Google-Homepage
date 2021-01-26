@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+    <link rel="stylesheet" href="style.css">
+    <title>Etch-a-Sketch Project</title>
+    <meta charset="UTF-8" />
+</header>
+
+<head>
+    <h1>ETCH-A-SKETCH</h1>
+</head>
+
+<body>
+    <button id="createNew">New Grid</button>
+    <button id="reset">Reset</button>
+    <div id="container">
+
+    </div>
+
+</body>
+
+<script>
+    const container = document.getElementById("container");
+
+    function colorchange(e) {
+        console.log(e.srcElement.style.backgroundColor);
+        e.srcElement.style.backgroundColor = "black";
+
+
+    }
+
+    function createNewGrid(e) {
+        let size = prompt("What Size grid would you like?", 16);
+        size = parseInt(size);
+        reset(e, size);
+    }
+
+    function makeGrid(rows, cols) {
+        container.style.setProperty('--grid-rows', rows);
+        container.style.setProperty('--grid-cols', cols);
+        for (c = 0; c < (rows * cols); c++) {
+            let cell = document.createElement("div");
+            cell.innerText = (c + 1);
+            container.appendChild(cell).className = "grid-item";
+        };
+        let gridList = Array.from(document.querySelectorAll(".grid-item"));
+
+        gridList.forEach(element => element.addEventListener("mouseover", colorchange));
+    };
+
+    function reset(e, gridSize = container.style.getPropertyValue("--grid-rows")) {
+        let gridList = Array.from(document.querySelectorAll(".grid-item"));
+        gridList.forEach(element => element.remove());
+        makeGrid(gridSize, gridSize);
+    }
+
+    const newGridButton = document.getElementById("createNew");
+    const resetButton = document.getElementById("reset");
+
+    newGridButton.addEventListener("click", createNewGrid)
+    resetButton.addEventListener("click", reset);
+    makeGrid(16, 16);
+</script>
+
+</html>

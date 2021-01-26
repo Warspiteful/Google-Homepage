@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <link rel="stylesheet" href="style.css">
+    <title>Rock Paper Scissors JS</title>
+</header>
+
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Score:</h1>
+        <p>You: <span id="UserScore">0</span> </p>
+        <p>Comp: <span id="CompScore">0</span></p>
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="scissors">Scissors</button>
+        <h3 id="result"></h3>
+    </div>
+    <script>
+        function computerPlay() {
+            let choice = Math.floor(Math.random() * 3);
+            switch (choice) {
+                case 0:
+                    return "Rock";
+                case 1:
+                    return "Paper";
+                case 2:
+                    return "Scissors";
+                default:
+                    console.log("Error?");
+
+            }
+        }
+
+        function scoreUpdate(score) {
+            let user = document.getElementById("UserScore");
+            let comp = document.getElementById("CompScore");
+
+            user.innerHTML = (parseInt(user.innerHTML) + score[0]).toString();
+            comp.innerHTML = (parseInt(comp.innerHTML) + score[1]).toString();
+
+        }
+
+        function playRound(e, computerSelection = computerPlay()) {
+            let result = document.getElementById("result");
+            switch (e.srcElement.className.toUpperCase()) {
+
+                case "ROCK":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            result.innerHTML = "You Tie! Rock Ties Rock";
+                            scoreUpdate([0, 0]);
+                            break;
+                        case "PAPER":
+                            result.innerHTML = "You Lose! Paper beats Rock";
+                            scoreUpdate([0, 1]);
+                            break;
+                        case "SCISSORS":
+                            result.innerHTML = "You Win! Rock beats Scissors";
+                            scoreUpdate([1, 0]);
+                            break;
+                    }
+                    break;
+                case "PAPER":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            result.innerHTML = "You Win! Paper beats Rock";
+                            scoreUpdate([1, 0]);
+                            break;
+                        case "PAPER":
+                            result.innerHTML = "You Tie! Paper ties Paper";
+                            scoreUpdate([0, 0]);
+                            break;
+                        case "SCISSORS":
+                            result.innerHTML = "You Lose! Scissors beats Paper";
+                            scoreUpdate([0, 1]);
+                            break;
+                    }
+                    break;
+                case "SCISSORS":
+                    switch (computerSelection.toUpperCase()) {
+                        case "ROCK":
+                            result.innerHTML = "You Lose! Rock beats Scissors";
+                            scoreUpdate([0, 1]);
+                            break;
+                        case "PAPER":
+                            result.innerHTML = "You Win! Scissors beats Paper";
+                            scoreUpdate([1, 0]);
+                            break;
+                        case "SCISSORS":
+                            result.innerHTML = "You Tie! Scissors Ties Scissors";
+                            scoreUpdate([0, 0]);
+                            break;
+                    }
+                    break;
+                default:
+                    console.log("You have entered an invalid option");
+            }
+        }
+
+        /*
+        function game() {
+            let score = [0, 0];
+            for (let i = 0; i < 5; i++) {
+                console.log("The scores is You: " + score[0] + ", Comp: " + score[1]);
+                result = playRound(prompt("What do you want to play?"), computerPlay());
+                score[0] += result[0];
+                score[1] += result[1];
+            }
+        }
+        game();
+        */
+
+        let buttons = Array.from(document.querySelectorAll("button"));
+        buttons.forEach(button => button.addEventListener('click', playRound));
+    </script>
+</body>
+
+</html>
