@@ -19,6 +19,10 @@ button {
     left: 45%;
 }
 
+.fill {
+    color: black;
+}
+
 .grid-item {
     padding: 1em;
     border: 1px solid #ddd;

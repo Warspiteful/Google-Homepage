@@ -12,6 +12,10 @@
 </head>
 
 <body>
+
+</body>
+
+<body>
     <button id="createNew">New Grid</button>
     <button id="reset">Reset</button>
     <div id="container">
@@ -21,46 +25,49 @@
 </body>
 
 <script>
+    var create = document.getElementById("createNew");
+    var resetButton = document.getElementById("reset")
+
+
+    // Use CSS Grids
+
+    //Import container into Javascript
     const container = document.getElementById("container");
 
-    function colorchange(e) {
-        console.log(e.srcElement.style.backgroundColor);
-        e.srcElement.style.backgroundColor = "black";
 
-
-    }
-
-    function createNewGrid(e) {
+    function createGrid(e) {
         let size = prompt("What Size grid would you like?", 16);
         size = parseInt(size);
-        reset(e, size);
+        reset(e, size)
     }
 
-    function makeGrid(rows, cols) {
-        container.style.setProperty('--grid-rows', rows);
-        container.style.setProperty('--grid-cols', cols);
-        for (c = 0; c < (rows * cols); c++) {
+    function reset(e, size = container.style.getPropertyValue("--grid-rows")) {
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        makeRows(size, size);
+    }
+
+    function changeColor(e) {
+        console.log("BYEEE");
+        this.style.backgroundColor = "black";
+    }
+
+    function makeRows(row, col) {
+        container.style.setProperty('--grid-rows', row);
+        container.style.setProperty('--grid-cols', col);
+        console.log("Helo!")
+        for (c = 0; c < (row * col); c++) {
             let cell = document.createElement("div");
             cell.innerText = (c + 1);
+            cell.addEventListener("mouseenter", changeColor);
             container.appendChild(cell).className = "grid-item";
-        };
-        let gridList = Array.from(document.querySelectorAll(".grid-item"));
+        }
 
-        gridList.forEach(element => element.addEventListener("mouseover", colorchange));
-    };
-
-    function reset(e, gridSize = container.style.getPropertyValue("--grid-rows")) {
-        let gridList = Array.from(document.querySelectorAll(".grid-item"));
-        gridList.forEach(element => element.remove());
-        makeGrid(gridSize, gridSize);
     }
 
-    const newGridButton = document.getElementById("createNew");
-    const resetButton = document.getElementById("reset");
-
-    newGridButton.addEventListener("click", createNewGrid)
-    resetButton.addEventListener("click", reset);
-    makeGrid(16, 16);
+    create.addEventListener("click", createGrid);
+    resetButton.addEventListener("click", reset)
 </script>
 
 </html>
